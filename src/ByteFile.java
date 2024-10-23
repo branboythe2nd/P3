@@ -13,7 +13,7 @@ import java.nio.ByteBuffer;
  * 
  * Can be extended in several ways (writeSortedRecords()? readBlock(int)?)
  * 
- * @author CS Stafffff
+ * @author CS Staff
  * @version Fall 2024
  */
 public class ByteFile {
