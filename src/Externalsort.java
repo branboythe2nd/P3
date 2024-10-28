@@ -47,7 +47,9 @@ public class Externalsort {
     public static void main(String[] args) {
         String filePath = "sampleInput16.bin";
         readBinaryFile(filePath);
-        System.out.print(totalRecords);
+        //System.out.println(totalRecords);
+        SelectionSort sortedArray = new SelectionSort(records);
+        sortedArray.externalSort();
     }
 
 
