@@ -10,8 +10,8 @@ public class SelectionSort {
 
     public SelectionSort(Record[] inputArray) {
         heap = new MinHeap<>(new Record[4096], 0, 4096);
-        inputBuffer = new Record[512];
-        outBuffer = new Record[512];
+        inputBuffer = new Record[512];  // 1 block as per input size
+        outBuffer = new Record[512];    // Buffer to store sorted output temporarily
         input = inputArray;
         output = new Record[input.length];
         curr = 0;
@@ -20,11 +20,9 @@ public class SelectionSort {
     }
 
     private Record[] populate() {
-        int i = 0;
-        while (i < inputBuffer.length && curr < input.length) {
+        for (int i = 0; i < inputBuffer.length; i++) {
             inputBuffer[i] = input[curr];
             curr++;
-            i++;
         }
         return inputBuffer;
     }
@@ -34,9 +32,7 @@ public class SelectionSort {
         while (count < 8 && curr < input.length) {
             inputBuffer = populate();
             for (Record r : inputBuffer) {
-                if (r != null) {
-                    heap.insert(r);
-                }
+                heap.insert(r);
             }
             count++;
         }
@@ -52,27 +48,22 @@ public class SelectionSort {
             for (int i = 0; i < outBuffer.length && heap.heapSize() > 0; i++) {
                 outBuffer[i] = heap.removeMin();
 
-                if (inputBuffer[i] != null) {
+                if (i < inputBuffer.length) {
                     heap.insert(inputBuffer[i]);
                 }
             }
 
             for (Record r : outBuffer) {
-                if (r != null && outSize < output.length) {
-                    output[outSize] = r;
-                    outSize++;
-                }
+                output[outSize] = r;
+                outSize++;
             }
             outBuffer = new Record[512]; 
         }
 
-        
-        while (heap.heapSize() > 0 && outSize < output.length) {
+
+        while (heap.heapSize() > 0) {
             output[outSize] = heap.removeMin();
             outSize++;
         }
-        //System.out.println(outSize);
     }
-
-    
 }
