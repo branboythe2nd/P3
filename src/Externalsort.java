@@ -1,5 +1,6 @@
 import java.io.*;
 import java.nio.ByteBuffer;
+import java.util.Random;
 
 /**
  * External Sort of heaps
@@ -37,18 +38,21 @@ public class Externalsort {
     private static final int RECORD_SIZE = 16;
     private static final int BLOCK_SIZE = 512;
     private static final int BLOCK_BYTE_SIZE = BLOCK_SIZE * RECORD_SIZE;
-    private static Record[] records = new Record[BLOCK_BYTE_SIZE];
-    private static int totalRecords = 0;
+    private static Record[] records;
+    private static int totalRecords;
 
     /**
      * @param args
      *            Command line parameters
+     * @throws IOException 
      */
-    public static void main(String[] args) {
-        String filePath = "sampleInput16.bin";
+    public static void main(String[] args) throws IOException {
+        totalRecords = 0;
+        records = new Record[BLOCK_BYTE_SIZE];
+        String filePath = args[0];
         readBinaryFile(filePath);
-        //System.out.println(totalRecords);
         SelectionSort sortedArray = new SelectionSort(records);
+        System.out.println(totalRecords);
         sortedArray.externalSort();
     }
 
@@ -111,6 +115,7 @@ public class Externalsort {
         long id = byteBuff.getLong();
         byteBuff = ByteBuffer.wrap(record, 8, 8);
         double key = byteBuff.getDouble();
+        System.out.println(key);
         return new Record(id, key);
     }
 
