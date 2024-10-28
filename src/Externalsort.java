@@ -64,16 +64,12 @@ public class Externalsort {
             byte[] blockBuffer = new byte[BLOCK_BYTE_SIZE];
 
             int bytesRead;
-            int blockNumber = 0;
 
             while ((bytesRead = fis.read(blockBuffer)) != -1) {
                 if (bytesRead < BLOCK_BYTE_SIZE) {
                     System.out.println(
                         "Partial block read. File may be incomplete.");
                 }
-                blockNumber++;
-                System.out.println("Reading Block " + blockNumber + " (size: "
-                    + bytesRead + " bytes)");
                 processBlock(blockBuffer, bytesRead);
             }
 

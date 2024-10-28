@@ -49,7 +49,7 @@ class MinHeap<T extends Comparable<T>> {
     public static int leftChild(int pos) {
         return 2 * pos + 1;
     }
-    
+
 
     /**
      * Return position for right child of pos
@@ -85,16 +85,18 @@ class MinHeap<T extends Comparable<T>> {
     public void setHeapSize(int newSize) {
         n = newSize;
     }
-    
+
+
     /**
      * Return current size of the heap
      *
-     * @return current heapSize 
+     * @return current heapSize
      */
     // Return current size of the heap
     public int heapSize() {
         return n;
     }
+
 
     /**
      * own descriptive comment
@@ -214,7 +216,7 @@ class MinHeap<T extends Comparable<T>> {
         }
         return heap[n];
     }
-    
+
 
     /**
      * Modify the value at the given position, then sift it around
@@ -271,5 +273,15 @@ class MinHeap<T extends Comparable<T>> {
      */
     private boolean isLessThan(int pos1, int pos2) {
         return heap[pos1].compareTo(heap[pos2]) < 0;
+    }
+
+
+    /**
+     * Returns the top of the heap aka the root
+     * 
+     * @return the root
+     */
+    public T getRoot() {
+        return heap[0];
     }
 }
