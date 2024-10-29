@@ -74,7 +74,7 @@ public class SelectionSort {
                 heap.setHeapSize(4096);
                 heap.buildHeap();
                 getRunList().add(outSize - 1);
-                System.out.println("Heap is 0");
+                //System.out.println("Heap is 0");
             }
         }
         heap.setHeapSize(4096);
@@ -83,7 +83,9 @@ public class SelectionSort {
             heap.buildHeap();
             outSize++;
         }
+        //System.out.println(outSize);
         return output;
+        
 
     }
 
