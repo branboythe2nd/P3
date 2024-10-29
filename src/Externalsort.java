@@ -55,6 +55,7 @@ public class Externalsort {
         readBinaryFile(filePath);
         SelectionSort sortedArray = new SelectionSort(records);
         records = sortedArray.externalSort();
+        System.out.println(sortedArray.getRunList().toString());
         String result = "";
         for (int i = 0; i < totalRecords; i += BLOCK_SIZE) {
             result += records[i] + "\n";

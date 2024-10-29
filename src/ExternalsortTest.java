@@ -25,7 +25,7 @@ public class ExternalsortTest extends TestCase {
         Random rand = new Random();
         ByteFile file = new ByteFile("text.bin", 8);
         file.writeRandomRecords(rand);
-        String[] args = { "sampleInput16.bin" };
+        String[] args = { "text.bin" };
         Externalsort.main(args);
 
     }
