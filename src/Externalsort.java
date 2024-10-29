@@ -44,19 +44,19 @@ public class Externalsort {
     /**
      * @param args
      *            Command line parameters
-     * @throws IOException 
+     * @throws IOException
      */
     public static void main(String[] args) throws IOException {
         totalRecords = 0;
-        records = new Record[BLOCK_BYTE_SIZE];
         String filePath = args[0];
+        File file = new File(filePath);
+        int totalBlocks = (int)file.length() / BLOCK_BYTE_SIZE;
+        records = new Record[totalBlocks * BLOCK_SIZE];
         readBinaryFile(filePath);
         SelectionSort sortedArray = new SelectionSort(records);
-        System.out.println(totalRecords);
         records = sortedArray.externalSort();
-        System.out.println(sortedArray.getRunList());
         String result = "";
-        for (int i = 0; i < BLOCK_BYTE_SIZE; i+=BLOCK_SIZE) {
+        for (int i = 0; i < totalRecords; i += BLOCK_SIZE) {
             result += records[i] + "\n";
         }
         System.out.println(result);
@@ -66,7 +66,8 @@ public class Externalsort {
     /**
      * Reads a binary file containing blocks of records.
      *
-     * @param filePath The path to the .bin file to read.
+     * @param filePath
+     *            The path to the .bin file to read.
      */
     public static void readBinaryFile(String filePath) {
         File file = new File(filePath);
@@ -93,8 +94,10 @@ public class Externalsort {
     /**
      * Processes a block of records from the given byte array.
      * 
-     * @param blockBuffer The byte array containing the block of data.
-     * @param bytesRead   The number of bytes read into the blockBuffer.
+     * @param blockBuffer
+     *            The byte array containing the block of data.
+     * @param bytesRead
+     *            The number of bytes read into the blockBuffer.
      */
     private static void processBlock(byte[] blockBuffer, int bytesRead) {
         int numRecords = bytesRead / RECORD_SIZE;
@@ -123,6 +126,5 @@ public class Externalsort {
         double key = byteBuff.getDouble();
         return new Record(id, key);
     }
-    
 
 }

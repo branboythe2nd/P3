@@ -8,13 +8,12 @@ public class SelectionSort {
     private int curr;
     private int outSize;
     private int buffer;
-    private int runs;
 
     public SelectionSort(Record[] inputArray) {
         heap = new MinHeap<>(new Record[4096], 0, 4096);
         setRunList(new DLList<Integer>());
         inputBuffer = new Record[512];
-        outBuffer = new Record[512]; 
+        outBuffer = new Record[512];
         input = inputArray;
         output = new Record[input.length];
         curr = 0;
@@ -48,7 +47,6 @@ public class SelectionSort {
 
     public Record[] externalSort() {
         initialLoad();
-
         while (curr < input.length) {
             inputBuffer = populate();
             for (int i = 0; i < outBuffer.length && heap.heapSize() > 0; i++) {
@@ -63,20 +61,18 @@ public class SelectionSort {
                 buffer = i;
             }
 
-
             for (Record r : outBuffer) {
                 output[outSize] = r;
                 outSize++;
             }
             outBuffer = new Record[512];
-            
+
             if (heap.heapSize() == 0) {
                 if (buffer != inputBuffer.length) {
                     curr = curr - (inputBuffer.length - buffer);
                 }
                 heap.setHeapSize(4096);
                 heap.buildHeap();
-                runs++;
                 getRunList().add(outSize - 1);
             }
         }
@@ -86,10 +82,6 @@ public class SelectionSort {
             heap.buildHeap();
             outSize++;
         }
-        runs++;
-        System.out.println(runs);
-        System.out.println(getRunList().size());
-        System.out.println(outSize);
         return output;
 
     }
