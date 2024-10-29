@@ -1,6 +1,5 @@
 import java.io.*;
 import java.nio.ByteBuffer;
-import java.util.Random;
 
 /**
  * External Sort of heaps
@@ -55,12 +54,12 @@ public class Externalsort {
         readBinaryFile(filePath);
         SelectionSort sortedArray = new SelectionSort(records);
         records = sortedArray.externalSort();
-        // System.out.println(sortedArray.getRunList().toString());
+        //System.out.println(sortedArray.getRunList().toString());
         String result = "";
         int count = 1;
         for (int i = 0; i < totalRecords; i += BLOCK_SIZE) {
-            result += records[i] +" ";
-            if (count % 5 == 0 || count==totalRecords) {
+            result += records[i] + " ";
+            if (count % 5 == 0 || count == totalRecords) {
                 result += "\n";
             }
             count++;

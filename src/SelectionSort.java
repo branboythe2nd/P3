@@ -49,43 +49,68 @@ public class SelectionSort {
         initialLoad();
         while (curr < input.length) {
             inputBuffer = populate();
-            for (int i = 0; i < outBuffer.length && heap.heapSize() > 0; i++) {
-                outBuffer[i] = heap.removeMin();
-                if (inputBuffer[i] != null) {
-                    heap.insert(inputBuffer[i]);
+            for (int i = 0; i < outBuffer.length && heap.heapSize() > 0
+                && inputBuffer[i] != null; i++) {
+                outBuffer[i] = heap.getRoot();
+                if (inputBuffer[i].compareTo(outBuffer[i]) > 0) {
+                    heap.modify(0, inputBuffer[i]);
                 }
-                heap.buildHeap();
-                if (heap.getRoot().compareTo(outBuffer[i]) < 0) {
+                else {
                     heap.remove(0);
                 }
                 buffer = i;
             }
 
             for (Record r : outBuffer) {
-                output[outSize] = r;
-                outSize++;
+                if (r != null) {
+                    output[outSize] = r;
+                    outSize++;
+                }
             }
             outBuffer = new Record[512];
 
             if (heap.heapSize() == 0) {
                 if (buffer != inputBuffer.length) {
-                    curr = curr - (inputBuffer.length - buffer);
+                    curr = curr - (inputBuffer.length - buffer - 1);
                 }
                 heap.setHeapSize(4096);
                 heap.buildHeap();
                 getRunList().add(outSize - 1);
-                //System.out.println("Heap is 0");
             }
         }
-        heap.setHeapSize(4096);
-        while (heap.heapSize() > 0) {
-            output[outSize] = heap.removeMin();
-            heap.buildHeap();
-            outSize++;
+// System.out.println(outSize);
+// System.out.println(heap.heapSize());
+        if (heap.heapSize() > 0) {
+            if (heap.heapSize() == 4096) {
+                while (heap.heapSize() > 0) {
+                    output[outSize] = heap.removeMin();
+                    outSize++;
+                }
+            }
+            else {
+                int rest = 4096 - heap.heapSize();
+                Record[] lastRecords = new Record[rest];
+                System.arraycopy(heap.getHeap(), heap.heapSize(), lastRecords,
+                    0, rest);
+                MinHeap<Record> lastHeap = new MinHeap<>(lastRecords, rest,
+                    rest);
+                lastHeap.buildHeap();
+                while (heap.heapSize() > 0) {
+                    output[outSize] = heap.removeMin();
+                    outSize++;
+                }
+                getRunList().add(outSize - 1);
+// System.out.println("Heap is 0");
+// System.out.println(outSize);
+                while (lastHeap.heapSize() > 0) {
+                    output[outSize] = lastHeap.removeMin();
+                    outSize++;
+                }
+// System.out.println(outSize);
+// System.out.println(lastHeap.heapSize());
+            }
         }
-        //System.out.println(outSize);
         return output;
-        
 
     }
 

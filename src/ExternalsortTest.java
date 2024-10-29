@@ -3,8 +3,8 @@ import java.util.Random;
 import student.TestCase;
 
 /**
- * @author {Your Name Here}
- * @version {Put Something Here}
+ * @author Brantson and Adarsh
+ * @version 10/29/2024
  */
 public class ExternalsortTest extends TestCase {
 
@@ -15,31 +15,18 @@ public class ExternalsortTest extends TestCase {
         // nothing to set up.
     }
 
-    /* *//**
-          * Tests the main method for External Sort
-          * 
-          * @throws IOException
-          *//*
-             * public void testExternalsort() throws IOException {
-             * Random rand = new Random();
-             * ByteFile file = new ByteFile("text.bin", 8);
-             * file.writeRandomRecords(rand);
-             * String[] args = { "text.bin" };
-             * Externalsort.main(args);
-             * 
-             * }
-             */
-
 
     /**
      * Tests the main method for External Sort
      * 
      * @throws IOException
      */
-    public void testExternalsort2() throws IOException {
-        String[] args = { "sampleInput16_sorted.bin" };
+    public void testExternalsort() throws IOException {
+        Random rand = new Random();
+        ByteFile file = new ByteFile("text.bin", 40);
+        file.writeRandomRecords(rand);
+        String[] args = { "text.bin" };
         Externalsort.main(args);
 
     }
-
 }

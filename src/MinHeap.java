@@ -284,4 +284,14 @@ class MinHeap<T extends Comparable<T>> {
     public T getRoot() {
         return heap[0];
     }
+
+
+    /**
+     * Returns the whole heap array
+     * 
+     * @return the heap array
+     */
+    public T[] getHeap() {
+        return heap;
+    }
 }
