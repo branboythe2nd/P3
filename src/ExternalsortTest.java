@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Random;
 import student.TestCase;
 
 /**
@@ -20,8 +21,12 @@ public class ExternalsortTest extends TestCase {
      * @throws IOException 
      */
     public void testExternalsort() throws IOException {
-        String[] args = {"text.bin"};
+        Random rand = new Random();
+        ByteFile file = new ByteFile("text.bin", 8);
+        file.writeRandomRecords(rand);
+        String[] args = {"sampleInput16.bin"};
         Externalsort.main(args);
+        
     }
 
 }

@@ -53,7 +53,13 @@ public class Externalsort {
         readBinaryFile(filePath);
         SelectionSort sortedArray = new SelectionSort(records);
         System.out.println(totalRecords);
-        sortedArray.externalSort();
+        records = sortedArray.externalSort();
+        System.out.println(sortedArray.getRunList());
+        String result = "";
+        for (int i = 0; i < BLOCK_BYTE_SIZE; i+=BLOCK_SIZE) {
+            result += records[i] + "\n";
+        }
+        System.out.println(result);
     }
 
 
@@ -115,8 +121,8 @@ public class Externalsort {
         long id = byteBuff.getLong();
         byteBuff = ByteBuffer.wrap(record, 8, 8);
         double key = byteBuff.getDouble();
-        System.out.println(key);
         return new Record(id, key);
     }
+    
 
 }
