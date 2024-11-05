@@ -52,10 +52,8 @@ public class SelectionSort {
             for (int i = 0; i < outBuffer.length && heap.heapSize() > 0
                 && inputBuffer[i] != null; i++) {
                 outBuffer[i] = heap.getRoot();
-                if (inputBuffer[i].compareTo(outBuffer[i]) > 0) {
-                    heap.modify(0, inputBuffer[i]);
-                }
-                else {
+                heap.modify(0, inputBuffer[i]);
+                if (inputBuffer[i].compareTo(outBuffer[i]) < 0) {
                     heap.remove(0);
                 }
                 buffer = i;
