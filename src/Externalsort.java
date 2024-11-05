@@ -55,6 +55,7 @@ public class Externalsort {
         SelectionSort sortedArray = new SelectionSort(records);
         records = sortedArray.externalSort();
         MergeSort merge = new MergeSort(sortedArray.getRunList(), records);
+        records = merge.mergeSort();
         //System.out.println(sortedArray.getRunList().toString());
         String result = "";
         int count = 1;
