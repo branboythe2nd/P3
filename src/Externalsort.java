@@ -56,7 +56,7 @@ public class Externalsort {
         records = sortedArray.externalSort();
         MergeSort merge = new MergeSort(sortedArray.getRunList(), records);
         records = merge.mergeSort();
-        //System.out.println(sortedArray.getRunList().toString());
+        
         String result = "";
         int count = 1;
         for (int i = 0; i < totalRecords; i += BLOCK_SIZE) {

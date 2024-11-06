@@ -35,7 +35,7 @@ public class MergeSort {
 
 
     public void initialLoad() {
-        int count = 1;
+        int count = 0;
         positions = new int[runList.size()];
         while (count < 4096) {
             for (int i = 0; i < runList.size(); i++) {
@@ -48,14 +48,20 @@ public class MergeSort {
                     if (count >= 4096) {
                         break;
                     }
+                    
+                }
+                if (count >= 4096) {
+                    break;
                 }
             }
         }
         curr = count;
         for (int i = 0; i < positions.length; i++) {
-            runList.get(i).setCurrentRec(runList.get(i)
-                .getRecords()[positions[i] - 1]);
-            runList.get(i).setCurrentPos(positions[i]);
+            if(positions[i] != 0) {
+                runList.get(i).setCurrentRec(runList.get(i)
+                    .getRecords()[positions[i] - 1]);
+                runList.get(i).setCurrentPos(positions[i]);
+            }
         }
         heap.buildHeap();
     }

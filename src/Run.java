@@ -9,6 +9,7 @@ public class Run {
     public Run(Record[] input) {
         setRecords(input);
         lastElement = input[input.length - 1];
+        
     }
 
     public Record[] getRecords() {
