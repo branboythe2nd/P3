@@ -10,7 +10,7 @@ public class MergeSort {
     private int outSize;
 
     public MergeSort(DLList<Integer> indexes, Record[] inputArray) {
-        System.out.println(indexes.size() + 1);
+        //System.out.println(indexes.size() + 1);
         input = inputArray;
         output = new Record[inputArray.length];
         outBuffer = new Record[512];
@@ -57,9 +57,7 @@ public class MergeSort {
             }
         }
         curr = count;
-        System.out.println(positions.length);
         for (int i = 0; i < positions.length; i++) {
-            //System.out.println(positions.length);
             if (positions[i] != 0) {
                 runList.get(i).setCurrentRec(runList.get(i)
                     .getRecords()[positions[i] - 1]);
@@ -105,6 +103,7 @@ public class MergeSort {
             }
         }
         Record[] temp = new Record[total];
+        System.out.println(total);
         while (curr < total) {
             for (int i = 0; i < outBuffer.length; i++) {
                 outBuffer[i] = heap.removeMin();
@@ -114,9 +113,7 @@ public class MergeSort {
                         runs.remove(index);
                     }
                     else {
-                        //System.out.println(runList.get(index).getCurrentPos());
                         populate(runList.get(index));
-                        //System.out.println(runList.get(index).getCurrentPos());
                         for (int j = 0; j < inputBuffer.length
                             && inputBuffer[j] != null; j++) {
                             heap.insert(inputBuffer[j]);
@@ -135,6 +132,20 @@ public class MergeSort {
         }
         while (heap.heapSize() > 0) {
             temp[size] = heap.removeMin();
+            int index = isLastElement(temp[size]);
+            if (index >= 0) {
+                if (runOver(temp[size])) {
+                    runs.remove(index);
+                }
+                else {
+                    populate(runList.get(index));
+                    for (int j = 0; j < inputBuffer.length
+                        && inputBuffer[j] != null; j++) {
+                        heap.insert(inputBuffer[j]);
+                    }
+
+                }
+            }
             size++;
         }
         Run run = new Run(temp);

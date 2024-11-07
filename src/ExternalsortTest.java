@@ -22,9 +22,9 @@ public class ExternalsortTest extends TestCase {
      * @throws IOException
      */
     public void testExternalsort() throws IOException {
-//        Random rand = new Random();
-//        ByteFile file = new ByteFile("text.bin", 16);
-//        file.writeRandomRecords(rand);
+        Random rand = new Random();
+        ByteFile file = new ByteFile("text.bin", 320);
+        file.writeRandomRecords(rand);
         String[] args = { "text.bin" };
         Externalsort.main(args);
 
