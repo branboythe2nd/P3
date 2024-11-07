@@ -1,6 +1,11 @@
 /**
- * The SelectionSort class implements the replacement selection for an external sorting algorithm using a min-heap to sort a large dataset.
- * It uses input and output buffers to manage records efficiently, processing chunks at a time.
+ * The SelectionSort class implements the replacement selection for an external
+ * sorting algorithm using a min-heap to sort a large dataset.
+ * It uses input and output buffers to manage records efficiently, processing
+ * chunks at a time.
+ * 
+ * @author Brantson and Adarsh
+ * @version 11/06/2024
  */
 public class SelectionSort {
     private MinHeap<Record> heap;
@@ -14,9 +19,11 @@ public class SelectionSort {
     private int buffer;
 
     /**
-     * Constructs a SelectionSort instance with a given array of records to be sorted.
+     * Constructs a SelectionSort instance with a given array of records to be
+     * sorted.
      *
-     * @param inputArray The array of records to sort
+     * @param inputArray
+     *            The array of records to sort
      */
     public SelectionSort(Record[] inputArray) {
         heap = new MinHeap<>(new Record[4096], 0, 4096);
@@ -29,6 +36,7 @@ public class SelectionSort {
         outSize = 0;
         buffer = 0;
     }
+
 
     /**
      * Fills the input buffer with the next set of records from the input array.
@@ -44,8 +52,10 @@ public class SelectionSort {
         return inputBuffer;
     }
 
+
     /**
-     * Initializes the heap by loading the first 8 blocks (buffers) of records from the input array
+     * Initializes the heap by loading the first 8 blocks (buffers) of records
+     * from the input array
      * into the heap and building the heap structure.
      */
     public void initialLoad() {
@@ -60,9 +70,11 @@ public class SelectionSort {
         heap.buildHeap();
     }
 
+
     /**
      * Performs an external sort on the input records using the min-heap.
-     * Populates the output array with sorted records and maintains a list of sorted runs.
+     * Populates the output array with sorted records and maintains a list of
+     * sorted runs.
      *
      * @return The sorted array of records
      */
@@ -127,8 +139,10 @@ public class SelectionSort {
 
     }
 
+
     /**
-     * Retrieves the list of indices where each sorted run ends. This list can be used for
+     * Retrieves the list of indices where each sorted run ends. This list can
+     * be used for
      * external merging of sorted runs.
      *
      * @return The list of end indices of sorted runs
@@ -137,10 +151,12 @@ public class SelectionSort {
         return runList;
     }
 
+
     /**
      * Sets the list that tracks the end indices of each sorted run.
      *
-     * @param runList The list to track sorted run end indices
+     * @param runList
+     *            The list to track sorted run end indices
      */
     public void setRunList(DLList<Integer> runList) {
         this.runList = runList;

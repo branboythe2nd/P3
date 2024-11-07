@@ -4,6 +4,9 @@
  * large data sets using a minimum heap and list of runs. This class manages
  * sorting
  * by breaking down data into smaller runs and then merging them using a heap.
+ * 
+ * @author Brantson and Adarsh
+ * @version 11/06/2024
  */
 public class MergeSort {
 
