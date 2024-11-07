@@ -108,7 +108,7 @@ public class SelectionSort {
 // System.out.println(lastHeap.heapSize());
             }
         }
-        //System.out.println(runList.size());
+        // System.out.println(runList.size());
         return output;
 
     }

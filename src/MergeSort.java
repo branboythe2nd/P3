@@ -10,7 +10,7 @@ public class MergeSort {
     private int outSize;
 
     public MergeSort(DLList<Integer> indexes, Record[] inputArray) {
-        //System.out.println(indexes.size() + 1);
+        // System.out.println(indexes.size() + 1);
         input = inputArray;
         output = new Record[inputArray.length];
         outBuffer = new Record[512];
@@ -163,10 +163,9 @@ public class MergeSort {
         int count = 0;
         for (Run run : runList) {
             if (run.getCurrentRec() != null) {
-                if (rec.compareTo(run.getCurrentRec()) == 0) 
-                {
+                if (rec.compareTo(run.getCurrentRec()) == 0) {
                     return count;
-                }            
+                }
             }
             count++;
         }
@@ -175,7 +174,7 @@ public class MergeSort {
 
 
     private boolean runOver(Record rec) {
-        //System.out.println(heap.heapSize());
+        // System.out.println(heap.heapSize());
         for (Run run : runList) {
             if (rec.compareTo(run.getLastElement()) == 0) {
                 return true;
