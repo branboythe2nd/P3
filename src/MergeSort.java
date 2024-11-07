@@ -72,7 +72,7 @@ public class MergeSort {
         inputBuffer = new Record[512];
         int count = 0;
         for (int i = 0; i < inputBuffer.length && run.getCurrentPos() < run
-            .getRecords().length; i++) {
+            .getRecords().length && i < (4096 - heap.heapSize()); i++) {
             inputBuffer[i] = run.getRecords()[run.getCurrentPos()];
             run.setCurrentPos(run.getCurrentPos() + 1);
             count++;
@@ -103,9 +103,8 @@ public class MergeSort {
             }
         }
         Record[] temp = new Record[total];
-        System.out.println(total);
         while (curr < total) {
-            for (int i = 0; i < outBuffer.length; i++) {
+            for (int i = 0; i < outBuffer.length && heap.heapSize() > 0; i++) {
                 outBuffer[i] = heap.removeMin();
                 int index = isLastElement(outBuffer[i]);
                 if (index >= 0) {
@@ -163,9 +162,11 @@ public class MergeSort {
     private int isLastElement(Record rec) {
         int count = 0;
         for (Run run : runList) {
-
-            if (rec.compareTo(run.getCurrentRec()) == 0) {
-                return count;
+            if (run.getCurrentRec() != null) {
+                if (rec.compareTo(run.getCurrentRec()) == 0) 
+                {
+                    return count;
+                }            
             }
             count++;
         }
@@ -174,7 +175,7 @@ public class MergeSort {
 
 
     private boolean runOver(Record rec) {
-
+        //System.out.println(heap.heapSize());
         for (Run run : runList) {
             if (rec.compareTo(run.getLastElement()) == 0) {
                 return true;
