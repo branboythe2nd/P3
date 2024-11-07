@@ -1,4 +1,12 @@
+/**
+ * The Merge sort class implements an multiway merge algorithm for the external
+ * sort algorithm to handle
+ * large data sets using a minimum heap and list of runs. This class manages
+ * sorting
+ * by breaking down data into smaller runs and then merging them using a heap.
+ */
 public class MergeSort {
+
     private MinHeap<Record> heap;
     private DLList<Run> runList;
     private Record[] inputBuffer;
@@ -9,8 +17,18 @@ public class MergeSort {
     private int curr;
     private int outSize;
 
+    /**
+     * Constructs a new {@code MergeSort} instance, initializing buffers, heap,
+     * and
+     * organizing input data into runs based on provided indexes.
+     *
+     * @param indexes
+     *            the list of indices marking the end of each run in the input
+     *            data
+     * @param inputArray
+     *            the input array of records to be sorted
+     */
     public MergeSort(DLList<Integer> indexes, Record[] inputArray) {
-        // System.out.println(indexes.size() + 1);
         input = inputArray;
         output = new Record[inputArray.length];
         outBuffer = new Record[512];
@@ -34,13 +52,17 @@ public class MergeSort {
     }
 
 
+    /**
+     * Performs the initial load of records into the heap from each run in
+     * {@code runList},
+     * populating the heap up to its capacity or until all runs are loaded.
+     */
     public void initialLoad() {
         heap = new MinHeap<>(new Record[4096], 0, 4096);
         int count = 0;
         positions = new int[runList.size()];
         while (count < 4096) {
             for (int i = 0; i < runList.size(); i++) {
-
                 Record[] array = runList.get(i).getRecords();
                 for (int j = 0; j < 512 && positions[i] < array.length; j++) {
                     heap.insert(array[positions[i]]);
@@ -49,7 +71,6 @@ public class MergeSort {
                     if (count >= 4096) {
                         break;
                     }
-
                 }
                 if (count >= 4096) {
                     break;
@@ -68,6 +89,15 @@ public class MergeSort {
     }
 
 
+    /**
+     * Populates the input buffer with records from the specified run until the
+     * buffer
+     * reaches its capacity or the run is exhausted.
+     *
+     * @param run
+     *            the run to populate from
+     * @return an array of records loaded from the run into the input buffer
+     */
     private Record[] populate(Run run) {
         inputBuffer = new Record[512];
         int count = 0;
@@ -83,6 +113,16 @@ public class MergeSort {
     }
 
 
+    /**
+     * Recursively merges runs by continually populating the heap and output
+     * buffer,
+     * creating a sorted run each time. Combines runs until a single sorted run
+     * remains.
+     *
+     * @param runs
+     *            the list of runs to merge
+     * @return a single list of runs containing one sorted run
+     */
     private DLList<Run> mergeHelper(DLList<Run> runs) {
         if (runs.size() == 1) {
             return runs;
@@ -90,13 +130,7 @@ public class MergeSort {
         initialLoad();
         int total = 0;
         int size = 0;
-        int rand = 0;
-        if (runList.size() >= 8) {
-            rand = 8;
-        }
-        else {
-            rand = runList.size();
-        }
+        int rand = (runList.size() >= 8) ? 8 : runList.size();
         for (int i = 0; i < rand; i++) {
             if (runs.get(i) != null) {
                 total += runs.get(i).getRecords().length;
@@ -117,7 +151,6 @@ public class MergeSort {
                             && inputBuffer[j] != null; j++) {
                             heap.insert(inputBuffer[j]);
                         }
-
                     }
                 }
             }
@@ -142,7 +175,6 @@ public class MergeSort {
                         && inputBuffer[j] != null; j++) {
                         heap.insert(inputBuffer[j]);
                     }
-
                 }
             }
             size++;
@@ -153,12 +185,29 @@ public class MergeSort {
     }
 
 
+    /**
+     * Performs the merge sort on the input data, merging runs until a single
+     * sorted run
+     * is obtained, which contains all sorted records.
+     *
+     * @return an array of sorted records
+     */
     public Record[] mergeSort() {
         runList = mergeHelper(runList);
         return runList.get(0).getRecords();
     }
 
 
+    /**
+     * Checks if the specified record is the last element in any of the current
+     * runs
+     * and returns the index of the run it belongs to, or -1 if not found.
+     *
+     * @param rec
+     *            the record to check
+     * @return the index of the run containing the last element equal to
+     *         {@code rec}, or -1 if not found
+     */
     private int isLastElement(Record rec) {
         int count = 0;
         for (Run run : runList) {
@@ -173,14 +222,20 @@ public class MergeSort {
     }
 
 
+    /**
+     * Determines if the specified record is the last element of its run.
+     *
+     * @param rec
+     *            the record to check
+     * @return {@code true} if {@code rec} is the last element in its run,
+     *         otherwise {@code false}
+     */
     private boolean runOver(Record rec) {
-        // System.out.println(heap.heapSize());
         for (Run run : runList) {
             if (rec.compareTo(run.getLastElement()) == 0) {
                 return true;
             }
         }
-
         return false;
     }
 
